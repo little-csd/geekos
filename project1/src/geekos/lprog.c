@@ -33,12 +33,10 @@ static int lprogdebug = 0;
  * Spawn_Program() sets up the memory space, and kickstarts the program
  */
 
-static unsigned long virtSize;
-
 static int Spawn_Program(char *exeFileData, struct Exe_Format *exeFormat)
 {
   struct Segment_Descriptor* desc;
-  // unsigned long virtSize;
+  unsigned long virtSize;
   unsigned short codeSelector, dataSelector;
 
   int i;
@@ -52,7 +50,7 @@ static int Spawn_Program(char *exeFileData, struct Exe_Format *exeFormat)
     if (topva > maxva)
       maxva = topva;
   }
-  Print("Maxva = %x\n", maxva);
+
   /* setup some memory space for the program */
 
   virtSize = Round_Up_To_Page(maxva) + 4096; /* leave some slack for stack */
@@ -156,6 +154,7 @@ void Spawner( unsigned long arg )
       Print("Spawn_Program failed\n");
       goto fail;
     }
+
     /*
      * User program has been loaded, so we can free the
      * executable file data now.
@@ -182,12 +181,8 @@ fail:
 
 static void Printrap_Handler( struct Interrupt_State* state )
 {
-  char * msg;
-  if (state->eax <= virtSize) {
-    msg = (char*)virtSpace + state->eax;
-  } else {
-    msg = state->eax;
-  }
+  char * msg = (char *)virtSpace + state->eax;
+
   Print(msg);
 
   g_needReschedule = true;

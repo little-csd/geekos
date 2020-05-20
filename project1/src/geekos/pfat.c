@@ -265,7 +265,7 @@ static int PFAT_Read_Entry(struct File *dir, struct VFS_Dir_Entry *entry)
      * generic struct VFS_Dir_Entry objects have much more space for filenames
      * than PFAT directoryEntry objects.
      */
-    strncpy(entry->name, pfatDirEntry->fileName, 12);
+    strncpy(entry->name, pfatDirEntry->fileName, sizeof(pfatDirEntry->fileName));
     entry->name[sizeof(pfatDirEntry->fileName)] = '\0';
 
     Copy_Stat(&entry->stats, pfatDirEntry);
