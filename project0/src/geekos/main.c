@@ -21,8 +21,20 @@
 #include <geekos/timer.h>
 #include <geekos/keyboard.h>
 
-
-
+#define KEY_MASK 0x3ff
+static
+void start() {
+    Print("Hello from Cai Sidi\n");
+    while (true) {
+        Keycode key = Wait_For_Key();
+        if ((key & KEY_CTRL_FLAG) && (key & KEY_MASK) == 0x64) break;
+        if (!(key & KEY_RELEASE_FLAG)) {
+            Print("Read %c\n", key&KEY_MASK);
+        }
+    }
+    Print("Exit\n");
+    return;
+}
 
 /*
  * Kernel C code entry point.
@@ -47,11 +59,11 @@ void Main(struct Boot_Info* bootInfo)
     Print("Welcome to GeekOS!\n");
     Set_Current_Attr(ATTRIB(BLACK, GRAY));
 
+    Start_Kernel_Thread(start, 0, PRIORITY_NORMAL, false);
+    
+    // TODO("Start a kernel thread to echo pressed keys and print counts");
 
-    TODO("Start a kernel thread to echo pressed keys and print counts");
-
-
-
+    while(1);
     /* Now this thread is done. */
     Exit(0);
 }

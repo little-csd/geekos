@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "keyboard.h": "c",
+        "timer.h": "c",
+        "trap.h": "c",
+        "kthread.h": "c",
+        "bootinfo.h": "c",
+        "string.h": "c",
+        "int.h": "c"
+    }
+}
