@@ -26,6 +26,7 @@ extern void Trampoline(unsigned short CodeSelector, unsigned short DataSelector,
 static void Printrap_Handler(struct Interrupt_State* state);
 
 static void * virtSpace;
+static unsigned long virtSize;
 
 static int lprogdebug = 0;
 
@@ -36,7 +37,6 @@ static int lprogdebug = 0;
 static int Spawn_Program(char *exeFileData, struct Exe_Format *exeFormat)
 {
   struct Segment_Descriptor* desc;
-  unsigned long virtSize;
   unsigned short codeSelector, dataSelector;
 
   int i;
@@ -46,11 +46,11 @@ static int Spawn_Program(char *exeFileData, struct Exe_Format *exeFormat)
   for (i = 0; i < exeFormat->numSegments; ++i) {
     struct Exe_Segment *segment = &exeFormat->segmentList[i];
     ulong_t topva = segment->startAddress + segment->sizeInMemory; 
-    
+
     if (topva > maxva)
       maxva = topva;
   }
-
+  Print("Maxva = %d\n", maxva);
   /* setup some memory space for the program */
 
   virtSize = Round_Up_To_Page(maxva) + 4096; /* leave some slack for stack */
@@ -99,8 +99,9 @@ static int Spawn_Program(char *exeFileData, struct Exe_Format *exeFormat)
 
       Print("Now calling Trampoline()... \n");
     }
-
-  Trampoline(codeSelector, dataSelector, exeFormat->entryAddr); 
+  // Print("Before trampoline\n");
+  Trampoline(codeSelector, dataSelector, exeFormat->entryAddr);
+  // Print("After trampoline\n");
   return 0;
 }
 
@@ -181,8 +182,12 @@ fail:
 
 static void Printrap_Handler( struct Interrupt_State* state )
 {
-  char * msg = (char *)virtSpace + state->eax;
-
+  char * msg;
+  if (state->eax <= virtSize) {
+    msg = (char*) virtSpace + state->eax;
+  } else {
+    msg = (char*) state->eax;
+  }
   Print(msg);
 
   g_needReschedule = true;

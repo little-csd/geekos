@@ -24,7 +24,9 @@ void _Entry(void)
     main(0, 0);
 
     /* make the inter-selector jump back */
-  __asm__ __volatile__ ("leave");
+  __asm__ __volatile__ ("addl $0x18, %esp");
+  __asm__ __volatile__ ("pop %ebx");
+  // __asm__ __volatile__ ("leave");
   __asm__ __volatile__ ("lret");
 
 }

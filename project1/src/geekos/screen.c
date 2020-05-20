@@ -330,11 +330,12 @@ again:
 	case 'D': Move_Cursor(s_cons.row, s_cons.col - Get_Arg(0)); break;
 	case 'm': Update_Attributes(); break;
 	case 'f': case 'H':
-	    if (s_cons.numArgs == 2) Move_Cursor(Get_Arg(0)-1, Get_Arg(1)-1); break;
+	    if (s_cons.numArgs == 2) Move_Cursor(Get_Arg(0)-1, Get_Arg(1)-1);
+        break;
 	case 'J':
 	    if (s_cons.numArgs == 1 && Get_Arg(0) == 2) {
-		Clear_Screen();
-		Put_Cursor(0, 0);
+		    Clear_Screen();
+		    Put_Cursor(0, 0);
 	    }
 	    break;
 	default: break;

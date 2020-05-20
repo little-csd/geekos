@@ -45,11 +45,12 @@ EXPORT Trampoline
 align 8
 Trampoline:
 ;; first we fetch the code selector off the stack	
-	mov	ebx, [esp+4]
+	push    ebx
+	mov	ebx, [esp+8]
 ;; then we fetch the data selector off the stack	
-	mov	eax, [esp+8]
+	mov	eax, [esp+0xc]
 ;; and finally the entry address	
-	mov	ecx, [esp+0xc]
+	mov	ecx, [esp+0x10]
 
 	push    ds	
 	push    es	
@@ -70,5 +71,6 @@ Trampoline:
 
 	pop es
 	pop ds
+	pop     ebx
  	ret
 	
