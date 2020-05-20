@@ -72,7 +72,7 @@ struct Exe_Segment {
  * Normally, we only need a code segment and a data segment.
  * Recent versions of gcc (3.2.3) seem to produce 3 segments.
  */
-#define EXE_MAX_SEGMENTS 3
+#define EXE_MAX_SEGMENTS 5
 
 /*
  * A struct concisely representing all information needed to

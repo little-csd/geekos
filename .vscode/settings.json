@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "mem.h": "c",
+        "kthread.h": "c",
+        "segment.h": "c",
+        "int.h": "c",
+        "elf.h": "c",
+        "vfs.h": "c",
+        "idt.h": "c",
+        "gdt.h": "c",
+        "pfat.h": "c",
+        "screen.h": "c",
+        "string.h": "c",
+        "malloc.h": "c",
+        "list.h": "c"
+    }
+}

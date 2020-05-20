@@ -223,7 +223,7 @@ static int Floppy_Close(struct Block_Device *dev)
 static int Floppy_Get_Num_Blocks(struct Block_Device *dev)
 {
     struct Floppy_Drive *drive;
-    struct Floppy_Parameters *params = drive->params;
+    struct Floppy_Parameters *params;
 
     KASSERT(dev->unit >= 0 && dev->unit <= 1);
     drive = &s_driveTable[dev->unit];
@@ -472,7 +472,7 @@ static int Floppy_Transfer(int direction, int driveNum, int blockNum, char *buf)
     enum DMA_Direction dmaDirection =
 	direction == FLOPPY_READ ? DMA_READ : DMA_WRITE;
     uchar_t command;
-    uchar_t st0, st1, st2;
+    uchar_t st0;
     int result = -1;
 
     KASSERT(driveNum == 0);  /* FIXME */
@@ -520,8 +520,8 @@ static int Floppy_Transfer(int direction, int driveNum, int blockNum, char *buf)
 
     /* Read results */
     st0 = Floppy_In();
-    st1 = Floppy_In();
-    st2 = Floppy_In();
+    Floppy_In();
+    Floppy_In();
     Floppy_In();  /* cylinder */
     Floppy_In();  /* head */
     Floppy_In();  /* sector number */
