@@ -46,7 +46,7 @@ static int Sys_Null(struct Interrupt_State* state)
  */
 static int Sys_Exit(struct Interrupt_State* state)
 {
-    TODO("Exit system call");
+    Exit(state->ebx);
 }
 
 /*
@@ -58,7 +58,17 @@ static int Sys_Exit(struct Interrupt_State* state)
  */
 static int Sys_PrintString(struct Interrupt_State* state)
 {
-    TODO("PrintString system call");
+    uint_t len = state->ecx;
+    uint_t ptr = state->ebx;
+    if (len <= 0) return;
+    void* buf = Malloc(len);
+    if (!buf) return -1;
+    if (!Copy_From_User(buf, ptr, len)) {
+        Free(buf);
+        return -1;
+    }
+    Put_Buf(buf, len);
+    return 0;
 }
 
 /*
@@ -70,7 +80,7 @@ static int Sys_PrintString(struct Interrupt_State* state)
  */
 static int Sys_GetKey(struct Interrupt_State* state)
 {
-    TODO("GetKey system call");
+    return Wait_For_Key();
 }
 
 /*
@@ -81,7 +91,7 @@ static int Sys_GetKey(struct Interrupt_State* state)
  */
 static int Sys_SetAttr(struct Interrupt_State* state)
 {
-    TODO("SetAttr system call");
+    Set_Current_Attr(state->ebx);
 }
 
 /*
@@ -93,7 +103,13 @@ static int Sys_SetAttr(struct Interrupt_State* state)
  */
 static int Sys_GetCursor(struct Interrupt_State* state)
 {
-    TODO("GetCursor system call");
+    int row, col;
+    Get_Cursor(&row, &col);
+    int rc = Copy_To_User(state->ebx, &row, sizeof(row));
+    if (!rc) return -1;
+    rc = Copy_To_User(state->ecx, &col, sizeof(col));
+    if (!rc) return -1;
+    return 0;
 }
 
 /*
@@ -105,7 +121,7 @@ static int Sys_GetCursor(struct Interrupt_State* state)
  */
 static int Sys_PutCursor(struct Interrupt_State* state)
 {
-    TODO("PutCursor system call");
+    return Put_Cursor(state->ebx, state->ecx);
 }
 
 /*
@@ -119,7 +135,34 @@ static int Sys_PutCursor(struct Interrupt_State* state)
  */
 static int Sys_Spawn(struct Interrupt_State* state)
 {
-    TODO("Spawn system call");
+    uint_t len_path = state->ecx;
+    uint_t len_cmd = state->esi;
+    uint_t ptr_path = state->ebx;
+    uint_t ptr_cmd = state->edx;
+    int rc;
+    char* path = Malloc(len_path);
+    if (path == 0) return -1;
+    if (!Copy_From_User(path, ptr_path, len_path)) {
+        Free(path);
+        return -1;
+    }
+    char* cmd = Malloc(len_cmd);
+    if (cmd == 0) return -1;
+    if (!Copy_From_User(cmd, ptr_cmd, len_cmd)) {
+        Free(cmd);
+        Free(path);
+        return -1;
+    }
+    struct Kernel_Thread* newThread;
+    Enable_Interrupts();
+    rc = Spawn(path, cmd, &newThread);
+    if (!rc) {
+        rc = newThread->pid;
+    }
+    Disable_Interrupts();
+    Free(path);
+    Free(cmd);
+    return rc;
 }
 
 /*
@@ -131,7 +174,12 @@ static int Sys_Spawn(struct Interrupt_State* state)
  */
 static int Sys_Wait(struct Interrupt_State* state)
 {
-    TODO("Wait system call");
+    struct Kernel_Thread* thread = Lookup_Thread(state->ebx);
+    if (!thread) return -1;
+    Enable_Interrupts();
+    int exit = Join(thread);
+    Disable_Interrupts();
+    return exit;
 }
 
 /*
@@ -142,7 +190,7 @@ static int Sys_Wait(struct Interrupt_State* state)
  */
 static int Sys_GetPID(struct Interrupt_State* state)
 {
-    TODO("GetPID system call");
+    return g_currentThread->pid;
 }
 
 

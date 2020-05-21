@@ -98,7 +98,40 @@ int Spawn(const char *program, const char *command, struct Kernel_Thread **pThre
      * If all goes well, store the pointer to the new thread in
      * pThread and return 0.  Otherwise, return an error code.
      */
-    TODO("Spawn a process by reading an executable from a filesystem");
+    int rc;
+    char* fileData = 0;
+    ulong_t len = 0;
+    rc = Read_Fully(program, &fileData, &len);
+    if (rc) {
+        if (fileData) Free(fileData);
+        return ENOTFOUND;
+    }
+
+    struct Exe_Format exeFormat;
+    rc = Parse_ELF_Executable(fileData, len, &exeFormat);
+    if (rc) {
+        if (fileData) Free(fileData);
+        return rc;
+    }
+
+    struct User_Context* userContext;
+    rc = Load_User_Program(fileData, len, &exeFormat, command, &userContext);
+    if (rc) {
+        if (fileData) Free(fileData);
+        if (userContext) Destroy_User_Context(userContext);
+        return rc;
+    }
+    Free(fileData);
+
+    struct Kernel_Thread* thread;
+    thread = Start_User_Thread(userContext, false);
+    if (!thread) {
+        if (userContext) Destroy_User_Context(userContext);
+        return -1;
+    }
+
+    *pThread = thread;
+    return 0;
 }
 
 /*
@@ -117,6 +150,20 @@ void Switch_To_User_Context(struct Kernel_Thread* kthread, struct Interrupt_Stat
      * the Set_Kernel_Stack_Pointer() and Switch_To_Address_Space()
      * functions.
      */
-    TODO("Switch to a new user address space, if necessary");
+    // static struct User_Context* current_user_context;
+    static struct User_Context* last_usercontext;
+    struct User_Context* current_user_context = kthread->userContext;
+
+    // Interrupts should be disabled
+    KASSERT(!Interrupts_Enabled());
+    // No user context
+    if (!current_user_context) return;
+    // Same user context
+    if (current_user_context == last_usercontext) return;
+
+    Switch_To_Address_Space(current_user_context);
+    ulong_t pointer = ((ulong_t)kthread->stackPage) + PAGE_SIZE;
+    Set_Kernel_Stack_Pointer(pointer);
+    last_usercontext = current_user_context;
 }
 

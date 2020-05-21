@@ -13,6 +13,15 @@
         "string.h": "c",
         "malloc.h": "c",
         "list.h": "c",
-        "argblock.h": "c"
+        "argblock.h": "c",
+        "limits.h": "c",
+        "gosfs.h": "c",
+        "bufcache.h": "c",
+        "synch.h": "c",
+        "bitset.h": "c",
+        "kassert.h": "c",
+        "random": "c",
+        "user.h": "c",
+        "ktypes.h": "c"
     }
 }
