@@ -16,6 +16,7 @@
 #include <geekos/string.h>
 #include <geekos/kthread.h>
 #include <geekos/malloc.h>
+#include <geekos/user.h>
 
 
 /* ----------------------------------------------------------------------
@@ -315,7 +316,29 @@ static void Setup_Kernel_Thread(
      * - The esi register should contain the address of
      *   the argument block
      */
-    TODO("Create a new thread to execute in user mode");
+    Attach_User_Context(kthread, userContext);
+
+    Push(kthread, userContext->dsSelector);
+    Push(kthread, userContext->stackPointerAddr);
+    Push(kthread, EFLAGS_IF);
+    Push(kthread, userContext->csSelector);
+    Push(kthread, userContext->entryAddr);
+    
+    Push(kthread, 0);  // error code
+    Push(kthread, 0);  // interrupt number
+
+    Push(kthread, 0);  // eax
+    Push(kthread, 0);  // ebx
+    Push(kthread, 0);  // ecx
+    Push(kthread, 0);  // edx
+    Push(kthread, userContext->argBlockAddr);  // esi
+    Push(kthread, 0);  // edi
+    Push(kthread, 0);  // ebp
+    
+    Push(kthread, userContext->dsSelector);  // ds
+    Push(kthread, userContext->dsSelector);  // es
+    Push(kthread, userContext->dsSelector);  // fs
+    Push(kthread, userContext->dsSelector);  // gs
 }
 
 
@@ -517,7 +540,18 @@ Start_User_Thread(struct User_Context* userContext, bool detached)
      * - Call Make_Runnable_Atomic() to schedule the process
      *   for execution
      */
-    TODO("Start user thread");
+    if (userContext == NULL) {
+        return NULL;
+    }
+    struct Kernel_Thread* thread = Create_Thread(PRIORITY_NORMAL, detached);
+    if (thread == NULL) {
+        return NULL;
+    }
+    Setup_User_Thread(thread, userContext);
+
+    Make_Runnable_Atomic(thread);
+
+    return thread;
 }
 
 /*

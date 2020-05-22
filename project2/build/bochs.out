@@ -30,12 +30,12 @@
 00000000000i[     ]   SB16 support: no
 00000000000i[     ]   USB support: no
 00000000000i[     ]   VGA extension support: vbe 
-00000000000i[MEM0 ] allocated memory at 0x7f8b06563010. after alignment, vector=0x7f8b06564000
+00000000000i[MEM0 ] allocated memory at 0x7f62c1819010. after alignment, vector=0x7f62c181a000
 00000000000i[MEM0 ] 8.00MB
 00000000000i[MEM0 ] mem block size = 0x00100000, blocks=8
 00000000000i[MEM0 ] rom at 0xfffe0000/131072 ('/usr/share/bochs/BIOS-bochs-latest')
 00000000000i[CMOS ] Using local time for initial clock
-00000000000i[CMOS ] Setting initial clock to: Thu May 21 15:18:51 2020 (time0=1590045531)
+00000000000i[CMOS ] Setting initial clock to: Fri May 22 17:38:57 2020 (time0=1590140337)
 00000000000i[DMA  ] channel 4 used by cascade
 00000000000i[DMA  ] channel 2 used by Floppy Drive
 00000000000i[FDD  ] fd0: 'fd.img' ro=0, h=2,t=80,spt=18
@@ -123,26 +123,26 @@
 00005333331i[XGUI ] charmap update. Font Height is 16
 00016457417i[BIOS ] Booting from 0000:7c00
 00032981618i[FDD  ] controller reset in software
-02025068000i[     ] Ctrl-C detected in signal handler.
-02025068000i[XGUI ] Mouse capture off
-02025068000i[     ] dbg: Quit
-02025068000i[CPU0 ] CPU is in protected mode (active)
-02025068000i[CPU0 ] CS.mode = 32 bit
-02025068000i[CPU0 ] SS.mode = 32 bit
-02025068000i[CPU0 ] | EAX=00001000  EBX=00028000  ECX=00001000  EDX=00000000
-02025068000i[CPU0 ] | ESP=00002fbc  EBP=00000000  ESI=00000000  EDI=00000000
-02025068000i[CPU0 ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf zf AF pf cf
-02025068000i[CPU0 ] | SEG selector     base    limit G D
-02025068000i[CPU0 ] | SEG sltr(index|ti|rpl)     base    limit G D
-02025068000i[CPU0 ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
-02025068000i[CPU0 ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-02025068000i[CPU0 ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-02025068000i[CPU0 ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-02025068000i[CPU0 ] |  FS:0000( 0000| 0|  0) 00000000 00000000 0 0
-02025068000i[CPU0 ] |  GS:0000( 0000| 0|  0) 00000000 00000000 0 0
-02025068000i[CPU0 ] | EIP=00010250 (00010250)
-02025068000i[CPU0 ] | CR0=0x60000011 CR2=0x00000000
-02025068000i[CPU0 ] | CR3=0x00000000 CR4=0x00000000
-02025068000i[CMOS ] Last time is 1590046037 (Thu May 21 15:27:17 2020)
-02025068000i[XGUI ] Exit
-02025068000i[CTRL ] quit_sim called with exit code 0
+00152633480i[     ] Ctrl-C detected in signal handler.
+00152633480i[XGUI ] Mouse capture off
+00152633480i[     ] dbg: Quit
+00152633480i[CPU0 ] CPU is in protected mode (active)
+00152633480i[CPU0 ] CS.mode = 32 bit
+00152633480i[CPU0 ] SS.mode = 32 bit
+00152633480i[CPU0 ] | EAX=00000000  EBX=00028000  ECX=00001000  EDX=00000000
+00152633480i[CPU0 ] | ESP=00002fc8  EBP=00000000  ESI=00000000  EDI=00000000
+00152633480i[CPU0 ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf zf AF PF cf
+00152633480i[CPU0 ] | SEG selector     base    limit G D
+00152633480i[CPU0 ] | SEG sltr(index|ti|rpl)     base    limit G D
+00152633480i[CPU0 ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
+00152633480i[CPU0 ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00152633480i[CPU0 ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00152633480i[CPU0 ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00152633480i[CPU0 ] |  FS:0000( 0000| 0|  0) 00000000 00000000 0 0
+00152633480i[CPU0 ] |  GS:0000( 0000| 0|  0) 00000000 00000000 0 0
+00152633480i[CPU0 ] | EIP=00015179 (00015179)
+00152633480i[CPU0 ] | CR0=0x60000011 CR2=0x00000000
+00152633480i[CPU0 ] | CR3=0x00000000 CR4=0x00000000
+00152633480i[CMOS ] Last time is 1590140375 (Fri May 22 17:39:35 2020)
+00152633480i[XGUI ] Exit
+00152633480i[CTRL ] quit_sim called with exit code 0

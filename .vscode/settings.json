@@ -22,6 +22,12 @@
         "kassert.h": "c",
         "random": "c",
         "user.h": "c",
-        "ktypes.h": "c"
+        "ktypes.h": "c",
+        "pfat16.h": "c",
+        "stdio.h": "c",
+        "assert.h": "c",
+        "stdlib.h": "c",
+        "stat.h": "c",
+        "blockdev.h": "c"
     }
 }
