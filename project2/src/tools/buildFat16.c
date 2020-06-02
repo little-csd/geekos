@@ -1,11 +1,11 @@
 // #include <geekos/pfat16.h>
-#include "pfat16.h"
 #include <sys/stat.h>
 #include <sys/fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <geekos/fat16.h>
 
 #define round_up_block(x) ((x+SECTOR_SIZE-1)&(~(SECTOR_SIZE-1)))
 
@@ -138,7 +138,7 @@ main(int argc, char** argv) {
          name, fat_ptr, blocks);
         
         copy_real_name(dir->name, name);
-        dir->firstBlock = fat_ptr;
+        dir->firstCluster = fat_ptr;
         dir->size = sbuf.st_size;
         dir->flag = 0;
 
@@ -164,7 +164,7 @@ main(int argc, char** argv) {
     write(fd, fat, FAT16_TSIZE);
     write(fd, dirEntry, sizeof(DirEntry)*MAX_DIR_COUNT);
     close(fd);
-
+    printf("Build fat16 successfully.\n");
     // test(argv[1]);
     return 0;
 }

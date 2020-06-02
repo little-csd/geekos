@@ -1,6 +1,6 @@
 00000000000i[     ] Bochs x86 Emulator 2.5
 00000000000i[     ]   Built from SVN snapshot, on November 27, 2011
-00000000000i[     ] Compiled on May 20 2020 at 13:37:23
+00000000000i[     ] Compiled on May 25 2020 at 18:44:55
 00000000000i[     ] System configuration
 00000000000i[     ]   processors: 1 (cores=1, HT threads=1)
 00000000000i[     ]   A20 line support: yes
@@ -30,12 +30,12 @@
 00000000000i[     ]   SB16 support: no
 00000000000i[     ]   USB support: no
 00000000000i[     ]   VGA extension support: vbe 
-00000000000i[MEM0 ] allocated memory at 0x7f3db2f9a010. after alignment, vector=0x7f3db2f9b000
+00000000000i[MEM0 ] allocated memory at 0x7f393b009010. after alignment, vector=0x7f393b00a000
 00000000000i[MEM0 ] 8.00MB
 00000000000i[MEM0 ] mem block size = 0x00100000, blocks=8
 00000000000i[MEM0 ] rom at 0xfffe0000/131072 ('/usr/local/share/bochs/BIOS-bochs-latest')
 00000000000i[CMOS ] Using local time for initial clock
-00000000000i[CMOS ] Setting initial clock to: Wed May 20 13:48:21 2020 (time0=1589953701)
+00000000000i[CMOS ] Setting initial clock to: Mon May 25 18:49:46 2020 (time0=1590403786)
 00000000000i[DMA  ] channel 4 used by cascade
 00000000000i[DMA  ] channel 2 used by Floppy Drive
 00000000000i[FDD  ] fd0: 'fd.img' ro=0, h=2,t=80,spt=18
@@ -52,6 +52,7 @@
 00000000000i[SPEAK] Failed to open /dev/console: Resource temporarily unavailable
 00000000000i[SPEAK] Deactivating beep on console
 00000000000i[     ] init_dev of 'extfpuirq' plugin device by virtual method
+00000000000i[     ] init_dev of 'iodebug' plugin device by virtual method
 00000000000i[     ] init_dev of 'ioapic' plugin device by virtual method
 00000000000i[IOAP ] initializing I/O APIC
 00000000000i[MEM0 ] Register memory access handlers: 0x00000000fec00000 - 0x00000000fec00fff
@@ -68,6 +69,7 @@
 00000000000i[     ] register state of 'biosdev' plugin device by virtual method
 00000000000i[     ] register state of 'speaker' plugin device by virtual method
 00000000000i[     ] register state of 'extfpuirq' plugin device by virtual method
+00000000000i[     ] register state of 'iodebug' plugin device by virtual method
 00000000000i[     ] register state of 'ioapic' plugin device by virtual method
 00000000000i[     ] register state of 'keyboard' plugin device by virtual method
 00000000000i[     ] register state of 'harddrv' plugin device by virtual method
@@ -91,11 +93,14 @@
 00000000000i[     ] reset of 'biosdev' plugin device by virtual method
 00000000000i[     ] reset of 'speaker' plugin device by virtual method
 00000000000i[     ] reset of 'extfpuirq' plugin device by virtual method
+00000000000i[     ] reset of 'iodebug' plugin device by virtual method
 00000000000i[     ] reset of 'ioapic' plugin device by virtual method
 00000000000i[     ] reset of 'keyboard' plugin device by virtual method
 00000000000i[     ] reset of 'harddrv' plugin device by virtual method
 00000000000i[     ] reset of 'serial' plugin device by virtual method
 00000000000i[     ] reset of 'parallel' plugin device by virtual method
+00000000000i[XGUI ] Mouse capture off
+00000000000i[     ] set SIGINT handler to bx_debug_ctrlc_handler
 00000000000i[XGUI ] Mouse capture off
 00000004855i[BIOS ] $Revision: 10789 $ $Date: 2011-11-24 17:03:51 +0100 (Do, 24. Nov 2011) $
 00000318074i[KBD  ] reset-disable command received
@@ -111,27 +116,27 @@
 00000488292i[BXVGA] VBE known Display Interface b0c5
 00000491217i[VBIOS] VBE Bios $Id: vbe.c,v 1.64 2011/07/19 18:25:05 vruppert Exp $
 00000600000i[XGUI ] charmap update. Font Height is 16
-00003917299i[BIOS ] Booting from 0000:7c00
-00035400000i[     ] cpu loop quit, shutting down simulator
-00035400000i[CPU0 ] CPU is in protected mode (active)
-00035400000i[CPU0 ] CS.mode = 32 bit
-00035400000i[CPU0 ] SS.mode = 32 bit
-00035400000i[CPU0 ] | EAX=00005000  EBX=0001f000  ECX=00000000  EDX=00006fb4
-00035400000i[CPU0 ] | ESP=00101fe4  EBP=00000000  ESI=000e0200  EDI=00000200
-00035400000i[CPU0 ] | IOPL=0 id vip vif ac vm rf nt of df IF tf sf zf af PF cf
-00035400000i[CPU0 ] | SEG selector     base    limit G D
-00035400000i[CPU0 ] | SEG sltr(index|ti|rpl)     base    limit G D
-00035400000i[CPU0 ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
-00035400000i[CPU0 ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00035400000i[CPU0 ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00035400000i[CPU0 ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00035400000i[CPU0 ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00035400000i[CPU0 ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00035400000i[CPU0 ] | EIP=000162ba (000162ba)
-00035400000i[CPU0 ] | CR0=0x60000011 CR2=0x00000000
-00035400000i[CPU0 ] | CR3=0x00000000 CR4=0x00000000
-00035400000i[CPU0 ] 0x000162ba>> jmp .-2 (0x000162ba) : EBFE
-00035400000i[CMOS ] Last time is 1589953736 (Wed May 20 13:48:56 2020)
-00035400000i[XGUI ] Exit
-00035400000i[     ] restoring default signal behavior
-00035400000i[CTRL ] quit_sim called with exit code 1
+00003917301i[BIOS ] Booting from 0000:7c00
+00039400000i[     ] Ctrl-C detected in signal handler.
+00039400000i[XGUI ] Mouse capture off
+00039400000i[     ] dbg: Quit
+00039400000i[CPU0 ] CPU is in protected mode (active)
+00039400000i[CPU0 ] CS.mode = 32 bit
+00039400000i[CPU0 ] SS.mode = 32 bit
+00039400000i[CPU0 ] | EAX=00000000  EBX=0001e000  ECX=00000000  EDX=000003d4
+00039400000i[CPU0 ] | ESP=00101f84  EBP=00000000  ESI=000e0200  EDI=00000200
+00039400000i[CPU0 ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf zf af PF cf
+00039400000i[CPU0 ] | SEG selector     base    limit G D
+00039400000i[CPU0 ] | SEG sltr(index|ti|rpl)     base    limit G D
+00039400000i[CPU0 ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
+00039400000i[CPU0 ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00039400000i[CPU0 ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00039400000i[CPU0 ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00039400000i[CPU0 ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00039400000i[CPU0 ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00039400000i[CPU0 ] | EIP=000100b9 (000100b9)
+00039400000i[CPU0 ] | CR0=0x60000011 CR2=0x00000000
+00039400000i[CPU0 ] | CR3=0x00000000 CR4=0x00000000
+00039400000i[CMOS ] Last time is 1590403825 (Mon May 25 18:50:25 2020)
+00039400000i[XGUI ] Exit
+00039400000i[CTRL ] quit_sim called with exit code 0

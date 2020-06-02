@@ -58,7 +58,7 @@ KERNEL_C_SRCS := idt.c int.c trap.c irq.c io.c \
 	synch.c kthread.c \
 	user.c $(USER_IMP_C) argblock.c syscall.c dma.c floppy.c \
 	elf.c blockdev.c ide.c \
-	vfs.c pfat.c bitset.c \
+	vfs.c fat16.c bitset.c \
 	main.c
 
 # Kernel object files built from C source files
@@ -253,8 +253,8 @@ diskc.img : $(USER_PROGS) $(BUILDFAT)
 	$(BUILDFAT) $@ $(USER_PROGS)
 
 # Tool to build PFAT filesystem images
-$(BUILDFAT) : $(PROJECT_ROOT)/src/tools/buildFat.c $(PROJECT_ROOT)/include/geekos/pfat.h
-	$(HOST_CC) $(CC_GENERAL_OPTS) -I$(PROJECT_ROOT)/include $(PROJECT_ROOT)/src/tools/buildFat.c -o $@
+$(BUILDFAT) : $(PROJECT_ROOT)/src/tools/buildFat16.c $(PROJECT_ROOT)/include/geekos/fat16.h
+	$(HOST_CC) $(CC_GENERAL_OPTS) -I$(PROJECT_ROOT)/include $(PROJECT_ROOT)/src/tools/buildFat16.c -o $@
 
 # Floppy boot sector (first stage boot loader).
 geekos/fd_boot.bin : geekos/setup.bin geekos/kernel.bin $(PROJECT_ROOT)/src/geekos/fd_boot.asm

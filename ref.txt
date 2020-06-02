@@ -3,6 +3,13 @@ https://www.jianshu.com/p/20bbb46dedb9
 https://www.nasm.us/pub/nasm/releasebuilds/2.00/
 http://manpages.ubuntu.com/manpages/bionic/man5/bochsrc.5.html
 
+
+project0:
+fatal file not found
+install gcc-multilib
+dlopen failed for module 'x': file not found
+nasm 2.0
+
 project1:
 add
 push ebx

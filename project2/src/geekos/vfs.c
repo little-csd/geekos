@@ -423,6 +423,9 @@ int Stat(const char *path, struct VFS_File_Stat *stat)
 
     if (!Unpack_Path(path, prefix, &suffix))
 	return ENOTFOUND;
+    // Print(prefix);
+    // Print("\n");
+    // Print(suffix);
 
     /* Get mount point for path */
     Debug("Stat: lookup mount point for %s\n", prefix);
@@ -577,7 +580,6 @@ int Read_Fully(const char *path, void **pBuffer, ulong_t *pLen)
 	rc = ENOTFOUND;
 	goto fail;
     }
-
     buf = (char*) Malloc(stat.size);
     if (buf == 0)
 	goto memfail;

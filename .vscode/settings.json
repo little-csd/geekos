@@ -28,6 +28,8 @@
         "assert.h": "c",
         "stdlib.h": "c",
         "stat.h": "c",
-        "blockdev.h": "c"
+        "blockdev.h": "c",
+        "fat16.h": "c",
+        "errno.h": "c"
     }
 }

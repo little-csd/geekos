@@ -12,7 +12,7 @@ floppya: 1_44=fd.img, status=inserted
 #floppya: 1_44=fd_aug.img, status=inserted
 
 log: ./bochs.out
-keyboard_serial_delay: 200
+keyboard_serial_delay:200
 # floppy_command_delay: 500
 # vga_update_interval: 30000
 cpu: count=1, ips=1000000

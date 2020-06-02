@@ -23,7 +23,7 @@
 #include <geekos/dma.h>
 #include <geekos/ide.h>
 #include <geekos/floppy.h>
-#include <geekos/pfat.h>
+#include <geekos/fat16.h>
 #include <geekos/vfs.h>
 #include <geekos/user.h>
 
@@ -70,7 +70,7 @@ void Main(struct Boot_Info* bootInfo)
     Init_DMA();
     Init_Floppy();
     Init_IDE();
-    Init_PFAT();
+    Init_Fat16();
 
     Mount_Root_Filesystem();
 
@@ -91,7 +91,7 @@ void Main(struct Boot_Info* bootInfo)
 
 static void Mount_Root_Filesystem(void)
 {
-    if (Mount(ROOT_DEVICE, ROOT_PREFIX, "pfat") != 0)
+    if (Mount(ROOT_DEVICE, ROOT_PREFIX, "fat16") != 0)
 	Print("Failed to mount /" ROOT_PREFIX " filesystem\n");
     else
 	Print("Mounted /" ROOT_PREFIX " filesystem!\n");
